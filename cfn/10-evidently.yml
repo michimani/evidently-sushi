@@ -44,19 +44,19 @@ Resources:
       Groups:
         - GroupName: "TamagoGroup"
           Description: "tamago group"
-          Feature: Fn::GetAtt SushiFeature.Name
+          Feature: !Ref SushiFeature
           Variation: "tamago"
         - GroupName: "UniGroup"
           Description: "uni group"
-          Feature: Fn::GetAtt SushiFeature.Name
+          Feature: !Ref SushiFeature
           Variation: "uni"
         - GroupName: "EngawaGroup"
           Description: "engawa group"
-          Feature: Fn::GetAtt SushiFeature.Name
+          Feature: !Ref SushiFeature
           Variation: "engawa"
         - GroupName: "MaguroGroup"
           Description: "maguro group"
-          Feature: Fn::GetAtt SushiFeature.Name
+          Feature: !Ref SushiFeature
           Variation: "maguro"
       ScheduledSplitsConfig:
         - GroupWeights:
