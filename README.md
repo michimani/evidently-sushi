@@ -15,6 +15,14 @@ This is a sample for creating a CloudWatch Evidently project.
 sh ./cfn/10-evidently.sh deploy
 ```
 
+# Start Launch
+
+```bash
+aws evidently start-launch \
+--project FoodProject \
+--launch SushiLaunch
+```
+
 # Check
 
 ## Project
@@ -39,3 +47,4 @@ aws evidently get-launch \
 --project FoodProject \
 --launch SushiLaunch
 ```
+
