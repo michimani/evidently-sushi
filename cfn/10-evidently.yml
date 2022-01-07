@@ -1,0 +1,72 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Sample of CloudWatch Evidently"
+
+Parameters:
+  LauchStartAt:
+    Type: String
+
+Resources:
+  FoodProject:
+    Type: AWS::Evidently::Project
+    Properties:
+      Name: "FoodProject"
+      Description: "Food Features"
+
+  SushiFeature:
+    Type: AWS::Evidently::Feature
+    Properties:
+      Name: "SushiFeature"
+      Description: "Sushi Neta"
+      Project: !Ref FoodProject
+      DefaultVariation: "tamago"
+      Variations:
+        - VariationName: "tamago"
+          StringValue: "tamago"
+        - VariationName: "uni"
+          StringValue: "uni"
+        - VariationName: "engawa"
+          StringValue: "engawa"
+        - VariationName: "maguro"
+          StringValue: "maguro"
+        - VariationName: "noneta"
+          StringValue: "no neta"
+      EntityOverrides:
+        - EntityId: "shari"
+          Variation: "noneta"
+      EvaluationStrategy: ALL_RULES
+
+  SushiLaunch:
+    Type: AWS::Evidently::Launch
+    Properties:
+      Name: "SushiLaunch"
+      Description: "Sushi Launch"
+      Project: !Ref FoodProject
+      Groups:
+        - GroupName: "TamagoGroup"
+          Description: "tamago group"
+          Feature: Fn::GetAtt SushiFeature.Name
+          Variation: "tamago"
+        - GroupName: "UniGroup"
+          Description: "uni group"
+          Feature: Fn::GetAtt SushiFeature.Name
+          Variation: "uni"
+        - GroupName: "EngawaGroup"
+          Description: "engawa group"
+          Feature: Fn::GetAtt SushiFeature.Name
+          Variation: "engawa"
+        - GroupName: "MaguroGroup"
+          Description: "maguro group"
+          Feature: Fn::GetAtt SushiFeature.Name
+          Variation: "maguro"
+      ScheduledSplitsConfig:
+        - GroupWeights:
+            - GroupName: "TamagoGroup"
+              SplitWeight: 10000
+            - GroupName: "UniGroup"
+              SplitWeight: 30000
+            - GroupName: "EngawaGroup"
+              SplitWeight: 30000
+            - GroupName: "MaguroGroup"
+              SplitWeight: 30000
+          StartTime: !Ref LauchStartAt
+
