@@ -6,6 +6,8 @@ This is a sample for creating a CloudWatch Evidently project.
 # Preparation
 
 - Install AWS CLI
+  - v1: `1.22.16` or higher
+  - v2: `2.4.3` or higher
 
 # Deploy
 
