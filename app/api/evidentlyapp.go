@@ -63,7 +63,10 @@ func (t *EvidentlyApp) EvaluateFeature(w http.ResponseWriter, r *http.Request, p
 	}
 
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(result)
+	jerr := json.NewEncoder(w).Encode(result)
+	if jerr != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+	}
 }
 
 func newEvidentlyClient() (*libs.EvidentlyClient, error) {
@@ -75,7 +78,7 @@ func newEvidentlyClient() (*libs.EvidentlyClient, error) {
 }
 
 func writeErrorResponse(w *http.ResponseWriter, err error) {
-	json.NewEncoder(*w).Encode(Error{
+	_ = json.NewEncoder(*w).Encode(Error{
 		Message: err.Error(),
 	})
 }
