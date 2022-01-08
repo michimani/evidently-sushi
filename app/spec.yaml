@@ -1,0 +1,59 @@
+openapi: '3.0.0'
+info:
+  title: 'sushi feature API'
+  description: 'API that acts as a proxy to the CloudWatch Evidently API'
+  version: '0.1.0'
+servers:
+  - url: 'https://example.com/api/'
+paths:
+  /features/evaluate:
+    get:
+      summary: 'call Evidently:EvaluateFeature'
+      description: 'evaluate feature'
+      operationId: evaluateFeature
+      parameters:
+        - name: entity_id
+          in: query
+          description: 'A specific entity'
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'OK'
+          content:
+            application/json; charset=utf8:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Feature'
+        default:
+            description: 'some errors'
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Feature:
+      properties:
+        name:
+          type: string
+          description: 'feature name'
+        value:
+          type: string
+          description: 'value of feature valiation'
+        reason:
+          type: string
+          description: 'valiation reason'
+        entityId:
+          type: string
+          description: 'used entity ID'
+    Error:
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: 'error message'
