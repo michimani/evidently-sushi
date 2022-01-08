@@ -23,7 +23,7 @@ aws evidently start-launch \
 --launch SushiLaunch
 ```
 
-# Check
+# Simple check with AWS CLI
 
 ## Project
 
