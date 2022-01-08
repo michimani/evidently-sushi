@@ -12,15 +12,15 @@ This is a sample for creating a CloudWatch Evidently project.
 ## via CloudFormation
 
 ```bash
-sh ./cfn/10-evidently.sh deploy
+sh ./cfn/10-evidently.sh 'deploy'
 ```
 
 # Start Launch
 
 ```bash
 aws evidently start-launch \
---project FoodProject \
---launch SushiLaunch
+--project 'FoodProject' \
+--launch 'SushiLaunch'
 ```
 
 # Simple check with AWS CLI
@@ -29,23 +29,23 @@ aws evidently start-launch \
 
 ```bash
 aws evidently get-project \
---project FoodProject
+--project 'FoodProject'
 ```
 
 ## Feature
 
 ```bash
 aws evidently get-feature \
---project FoodProject \
---feature SushiFeature
+--project 'FoodProject' \
+--feature 'SushiFeature'
 ```
 
 ## Launch
 
 ```bash
 aws evidently get-launch \
---project FoodProject \
---launch SushiLaunch
+--project 'FoodProject' \
+--launch 'SushiLaunch'
 ```
 
 ## Evaluate Feature
@@ -55,8 +55,8 @@ Run the "evaluate-feature" API 10 times with different EntityIDs.
 ```bash
 for i in `seq 10`; do
   aws evidently evaluate-feature \
-  --project FoodProject \
-  --feature SushiFeature \
+  --project 'FoodProject' \
+  --feature 'SushiFeature' \
   --entity-id "$(date -u +'%s')-${i}" \
   --query 'value.stringValue' \
   --output text
@@ -84,8 +84,8 @@ If you specify the EntityID set in EntityOverrides, a fixed value will be return
 ```bash
 for i in `seq 10`; do
   aws evidently evaluate-feature \
-  --project FoodProject \
-  --feature SushiFeature \
+  --project 'FoodProject' \
+  --feature 'SushiFeature' \
   --entity-id 'shari' \
   --query 'value.stringValue' \
   --output text
