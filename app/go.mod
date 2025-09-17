@@ -8,7 +8,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/evidently v1.3.0
 	github.com/deepmap/oapi-codegen v1.9.0
 	github.com/getkin/kin-openapi v0.88.0
-	github.com/go-chi/chi/v5 v5.0.7
+	github.com/go-chi/chi/v5 v5.2.2
 )
 
 require (
